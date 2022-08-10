@@ -1,0 +1,21 @@
+{
+  "development": {
+    "use_env_variable":"DATABASE_URL"
+  },
+  "test": {
+    "username": "katved",
+    "password": "kat",
+    "database": "katved_apps",
+    "host": "127.0.0.1",
+    "port":5432,
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "katved",
+    "password": "kat",
+    "database": "katved_apps",
+    "host": "127.0.0.1",
+    "port":5432,
+    "dialect": "postgres"
+  }
+}
