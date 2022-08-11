@@ -1,7 +1,7 @@
 "use strict";
 
 import { DataTypes, Sequelize } from "sequelize";
-import { UserStatic } from "../types";
+//import { UserStatic } from "../types";
 import Book from "./book";
 import db from ".";
 
@@ -33,7 +33,7 @@ const attributes = {
 };
 
 function userModelFactory(sequelize: Sequelize) {
-  return sequelize.define("Books", attributes, modelOPtions);
+  return sequelize.define("User", attributes, modelOPtions);
 }
 
 const User = userModelFactory(db);

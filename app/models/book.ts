@@ -41,7 +41,7 @@ const attributes = {
 };
 
 function bookModelFactory(sequelize: Sequelize) {
-  return sequelize.define("Books", attributes, modelOPtions);
+  return sequelize.define("Book", attributes, modelOPtions);
 }
 
 const Book = bookModelFactory(db);

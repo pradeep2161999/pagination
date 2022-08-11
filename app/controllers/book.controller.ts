@@ -1,15 +1,16 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { add, edit, erase, list } from "../services/book.services";
 import { BookAttributes } from "../types";
-import { UserParams, BookParams } from "../types/user-controller";
+import { UserParams } from "../types/user-controller";
+import { BookParams } from "../types/book-controller";
 
-async function create(req: FastifyRequest, reply: FastifyReply) {
+ function create(req: FastifyRequest, reply: FastifyReply) {
   const attrs = req.body as BookAttributes;
+  
+  const  {userId}  = req.params as {userId:number};
   //console.log("--------------", req.params);
   //console.log("=--------------->", attrs);
-  const { userId } = req.params as { userId: number };
-  //console.log("-------------------------------------", userId);
-  //console.log("-----------------------------",id);
+  //console.log("userId-------------------------------------", userId);
   return add(attrs, userId)
     .then((user: any) => {
       reply.status(200).send(user);
@@ -18,20 +19,24 @@ async function create(req: FastifyRequest, reply: FastifyReply) {
       reply.status(400).send(err);
     });
 }
-async function listAll(req: FastifyRequest, reply: FastifyReply) {
+ function listAll(req: FastifyRequest, reply: FastifyReply) {
   return list()
     .then((books) => {
       reply.status(200).send(books);
     })
     .catch((err) => {
-      reply.status(400).send({ err: err });
+      reply
+        .status(400)
+        .send({ errors: ["Error occured while getting list of books"] });
     });
 }
-async function update(req: FastifyRequest, reply: FastifyReply) {
+ function update(req: FastifyRequest, reply: FastifyReply) {
   //   console.log("req------------------------------------------------", req.body);
-  //   console.log("params---------------------------", req.params);
+  //console.log("params---------------------------", req.params);
+
   const attrs = req.body as BookAttributes;
-  const { userId, bookId } = req.params as BookParams;
+  const {bookId } = req.params as BookParams;
+  //console.log("bookId------------------------------------------", bookId);
   return edit(attrs, bookId)
     .then((user: any) => {
       reply.status(200).send(user);
@@ -42,11 +47,13 @@ async function update(req: FastifyRequest, reply: FastifyReply) {
 }
 
 async function destroy(req: FastifyRequest, reply: FastifyReply) {
-  // console.log("req------------------------------------------------", req.body);
-  // console.log("params---------------------------", req.params);
-  const { userId, bookId } = req.params as BookParams;
+  //console.log("req------------------------------------------------", req.body);
+  //console.log("params---------------------------", req.params);
+  const  {bookId}  = req.params as BookParams;
+  //console.log("bookId-----------------------------------------------",bookId);
+
   const user = await erase(bookId);
-  return user;
+  reply.status(200).send({ message: ["Book deleted sucessfully"] });
 }
 
 export { create, update, destroy, listAll };

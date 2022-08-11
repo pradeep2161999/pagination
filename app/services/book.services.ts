@@ -5,29 +5,28 @@ import User from "../models/user";
 import { BookAttributes } from "../types";
 import { UserParams } from "../types/user-controller";
 
-async function add(attrs, id: number) {
+async function add(attrs, userId: number) {
   //console.log("attrs-------------------------", attrs);
   // console.log("--------", id);
-  attrs.userId = id;
+  attrs.userId = userId;
   // console.log(attrs)
   return Book.create(attrs);
 }
 async function list() {
   return Book.findAll();
 }
-async function edit(attrs: BookAttributes, id: number) {
+async function edit(attrs: BookAttributes, bookId: number) {
   const data = Book.update(attrs, {
     where: {
-      id: id,
+      id: bookId,
     },
   });
-  console.log("---------------------------", data);
 }
 
-async function erase(id: number) {
+async function erase(bookId: number) {
   return Book.destroy({
     where: {
-      id: id,
+      id: bookId,
     },
   });
 }

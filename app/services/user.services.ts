@@ -1,7 +1,9 @@
 import Book from "../models/book";
 import User from "../models/user";
+import { UserAttributes } from "../types";
 
-function add(attrs: any) {
+
+function add(attrs) {
   return User.create(attrs);
 }
 
@@ -20,6 +22,7 @@ async function edit(attrs: any, params: any) {
   const user = await getUser(params.id);
   user?.update(attrs);
 }
+
 async function getUser(id) {
   return User.findByPk(id);
 }
@@ -29,4 +32,4 @@ async function erase(attrs: any, id: any) {
   user?.destroy();
 }
 
-export { add, listUser, edit, erase /* getUser */ };
+export { add, listUser, edit, erase };

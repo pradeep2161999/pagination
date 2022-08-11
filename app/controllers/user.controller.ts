@@ -1,9 +1,11 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { add, listUser, edit, erase } from "../services/user.services";
+import { UserAttributes } from "../types";
 
 function create(req: FastifyRequest, reply: FastifyReply) {
-  console.log("user create attributes are", req.body);
-  return add(req.body)
+  //console.log("user create attributes are", req.body);
+  const attrs=req.body as UserAttributes;
+  return add(attrs)
     .then((user: any) => {
       reply.status(200).send(user);
     })
@@ -18,11 +20,7 @@ function list(req: FastifyRequest, reply: FastifyReply) {
       reply.status(200).send(user);
     })
     .catch((err: Error) => {
-      reply.status(400).send(err); // return Book.destroy({
-      //   where: {
-      //     id: id,
-      //   },
-      // });
+      reply.status(400).send({ errors: ["Errors !!"] });
     });
 }
 function update(req: FastifyRequest, reply: FastifyReply) {
