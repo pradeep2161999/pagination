@@ -12,10 +12,10 @@ import { BookParams } from "../types/book-controller";
   //console.log("=--------------->", attrs);
   //console.log("userId-------------------------------------", userId);
   return add(attrs, userId)
-    .then((user: any) => {
+    .then((user) => {
       reply.status(200).send(user);
     })
-    .catch((err: Error) => {
+    .catch((err) => {
       reply.status(400).send(err);
     });
 }
@@ -38,10 +38,10 @@ import { BookParams } from "../types/book-controller";
   const {bookId } = req.params as BookParams;
   //console.log("bookId------------------------------------------", bookId);
   return edit(attrs, bookId)
-    .then((user: any) => {
+    .then((user) => {
       reply.status(200).send(user);
     })
-    .catch((err: Error) => {
+    .catch((err) => {
       reply.status(400).send(err);
     });
 }

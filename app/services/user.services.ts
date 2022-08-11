@@ -15,6 +15,7 @@ function listUser() {
         as: "book",
       },
     ],
+    order: ["id"],
   });
 }
 

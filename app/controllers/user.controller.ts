@@ -16,7 +16,7 @@ function create(req: FastifyRequest, reply: FastifyReply) {
 
 function list(req: FastifyRequest, reply: FastifyReply) {
   return listUser()
-    .then((user: any) => {
+    .then((user) => {
       reply.status(200).send(user);
     })
     .catch((err: Error) => {
@@ -28,7 +28,7 @@ function update(req: FastifyRequest, reply: FastifyReply) {
   //   console.log("params---------------------------", req.params);
 
   return edit(req.body, req.params)
-    .then((user: any) => {
+    .then((user) => {
       reply.status(200).send(user);
     })
     .catch((err: Error) => {

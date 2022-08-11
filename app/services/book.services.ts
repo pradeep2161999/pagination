@@ -12,9 +12,11 @@ async function add(attrs, userId: number) {
   // console.log(attrs)
   return Book.create(attrs);
 }
+
 async function list() {
   return Book.findAll();
 }
+
 async function edit(attrs: BookAttributes, bookId: number) {
   const data = Book.update(attrs, {
     where: {
