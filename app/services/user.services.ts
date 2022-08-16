@@ -1,7 +1,40 @@
 import Book from "../models/book";
 import User from "../models/user";
 import { UserAttributes } from "../types";
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
+function generateToken(Email) {
+  //console.log("Email", Email)
+  //console.log("process.env.TOKEN_SECRET-----------------------------", process.env.TOKEN_SECRET)
+  return jwt.sign({ Email }, `${process.env.TOKEN_SECRET}`);
+}
+
+async function signin(attrs) {
+  const user = await User.findOne({ where: { Email: attrs.Email } });
+  //console.log("attrs--------------------------",attrs);
+  //console.log("user---------------------------",user);
+  const pass = "kathish";
+  //console.log("pass-----------------------------",pass);
+
+  const hash = bcrypt.hashSync(attrs.password, 10);
+  // console.log("hash--------------------------",hash);
+  const checkPassword = bcrypt.compareSync(pass, hash); // true
+
+  // console.log("checkPassword---------------------------", checkPassword);
+
+  if (!checkPassword) {
+    throw new Error("Email or password is invalid");
+  }
+  const token = generateToken(attrs.Email);
+  //console.log("token-----------------------", access_token)
+
+  await user.update({
+    token: token,
+  });
+
+  return token;
+}
 
 function add(attrs) {
   return User.create(attrs);
@@ -33,4 +66,4 @@ async function erase(attrs: any, id: any) {
   user?.destroy();
 }
 
-export { add, listUser, edit, erase };
+export { add, listUser, edit, erase, signin };

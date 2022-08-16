@@ -22,6 +22,18 @@ const attributes = {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  mark_as_signin: {
+    allowNull: false,
+    type: DataTypes.DATE,
+  },
+  token: {
+    allowNull: false,
+    type: DataTypes.STRING,
+  },
   createdAt: {
     allowNull: false,
     type: DataTypes.DATE,

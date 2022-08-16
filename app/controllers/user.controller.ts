@@ -1,10 +1,27 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { add, listUser, edit, erase } from "../services/user.services";
+import { SignatureKind } from "typescript";
+import { add, listUser, edit, erase ,signin} from "../services/user.services";
 import { UserAttributes } from "../types";
+
+
+function login(req: FastifyRequest, reply: FastifyReply) {
+  const attrs = req.body as UserAttributes;
+  // const pass=attrs.password;
+  // console.log("pass--------------------",pass);
+  
+  return signin(attrs)
+    .then(() => {
+      reply.status(200).send({ msg: ["login sucessfully"] });
+    })
+    .catch((err: Error) => {
+      reply.status(400).send(err);
+    });
+}
 
 function create(req: FastifyRequest, reply: FastifyReply) {
   //console.log("user create attributes are", req.body);
-  const attrs=req.body as UserAttributes;
+  const attrs = req.body as UserAttributes;
+  const { id } = req.params as { id: number };
   return add(attrs)
     .then((user: any) => {
       reply.status(200).send(user);
@@ -23,6 +40,7 @@ function list(req: FastifyRequest, reply: FastifyReply) {
       reply.status(400).send({ errors: ["Errors !!"] });
     });
 }
+
 function update(req: FastifyRequest, reply: FastifyReply) {
   //   console.log("req------------------------------------------------", req.body);
   //   console.log("params---------------------------", req.params);
@@ -49,4 +67,4 @@ function destroy(req: FastifyRequest, reply: FastifyReply) {
     });
 }
 
-export { create, list, update, destroy };
+export { create, list, update, destroy ,login};
