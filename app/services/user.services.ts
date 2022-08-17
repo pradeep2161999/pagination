@@ -13,11 +13,10 @@ async function signin(attrs) {
   const user: any = await User.findOne({ where: { Email: attrs.Email } });
   //console.log("attrs--------------------------",attrs);
   // console.log("user---------------------------", user);
-  //console.log("pass-----------------------------",pass);
 
   // const hash = bcrypt.hashSync(attrs.password, 10);
   // console.log("hash--------------------------", hash);
-  const checkPassword = bcrypt.compareSync(attrs.password, user.password); // true
+  const checkPassword = bcrypt.compareSync(attrs.password, user.password);
 
   //console.log("checkPassword---------------------------", checkPassword);
 

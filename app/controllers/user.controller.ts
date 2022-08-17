@@ -10,7 +10,7 @@ function login(req: FastifyRequest, reply: FastifyReply) {
 
   return signin(attrs)
     .then((token) => {
-      reply.header('Authorization', `Bearer ${token}`);
+      reply.header("Authorization", `Bearer ${token}`);
       reply.status(200).send({ msg: ["login sucessfully"] });
     })
     .catch((err: Error) => {
