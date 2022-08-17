@@ -6,28 +6,26 @@ const jwt = require("jsonwebtoken");
 
 function generateToken(Email) {
   //console.log("Email", Email)
-  //console.log("process.env.TOKEN_SECRET-----------------------------", process.env.TOKEN_SECRET)
   return jwt.sign({ Email }, `${process.env.TOKEN_SECRET}`);
 }
 
 async function signin(attrs) {
-  const user = await User.findOne({ where: { Email: attrs.Email } });
+  const user: any = await User.findOne({ where: { Email: attrs.Email } });
   //console.log("attrs--------------------------",attrs);
-  //console.log("user---------------------------",user);
-  const pass = "kathish";
+  // console.log("user---------------------------", user);
   //console.log("pass-----------------------------",pass);
 
-  const hash = bcrypt.hashSync(attrs.password, 10);
-  // console.log("hash--------------------------",hash);
-  const checkPassword = bcrypt.compareSync(pass, hash); // true
+  // const hash = bcrypt.hashSync(attrs.password, 10);
+  // console.log("hash--------------------------", hash);
+  const checkPassword = bcrypt.compareSync(attrs.password, user.password); // true
 
-  // console.log("checkPassword---------------------------", checkPassword);
+  //console.log("checkPassword---------------------------", checkPassword);
 
   if (!checkPassword) {
     throw new Error("Email or password is invalid");
   }
   const token = generateToken(attrs.Email);
-  //console.log("token-----------------------", access_token)
+  //console.log("token-----------------------", token)
 
   await user.update({
     token: token,

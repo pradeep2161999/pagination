@@ -1,16 +1,16 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { SignatureKind } from "typescript";
-import { add, listUser, edit, erase ,signin} from "../services/user.services";
+import { add, listUser, edit, erase, signin } from "../services/user.services";
 import { UserAttributes } from "../types";
-
 
 function login(req: FastifyRequest, reply: FastifyReply) {
   const attrs = req.body as UserAttributes;
   // const pass=attrs.password;
   // console.log("pass--------------------",pass);
-  
+
   return signin(attrs)
-    .then(() => {
+    .then((token) => {
+      reply.header('Authorization', `Bearer ${token}`);
       reply.status(200).send({ msg: ["login sucessfully"] });
     })
     .catch((err: Error) => {
@@ -67,4 +67,4 @@ function destroy(req: FastifyRequest, reply: FastifyReply) {
     });
 }
 
-export { create, list, update, destroy ,login};
+export { create, list, update, destroy, login };
