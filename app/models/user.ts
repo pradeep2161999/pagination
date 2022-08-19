@@ -49,7 +49,7 @@ function userModelFactory(sequelize: Sequelize) {
 }
 
 const User = userModelFactory(db);
-
+// console.log(User)
 User.hasMany(Book, { foreignKey: "userId", as: "book" });
 
 export default User;

@@ -2,7 +2,6 @@
 
 import { DataTypes, Sequelize } from "sequelize";
 //import { BookStatic } from "../types";
-import User from "./user";
 import db from ".";
 
 const modelOPtions = {

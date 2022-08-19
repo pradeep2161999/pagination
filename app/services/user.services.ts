@@ -6,7 +6,9 @@ const jwt = require("jsonwebtoken");
 
 function generateToken(Email) {
   //console.log("Email", Email)
-  return jwt.sign({ Email }, `${process.env.TOKEN_SECRET}`);
+  console.log("process.env.TOKEN_SECRET", process.env.TOKEN_SECRET);
+  const token = jwt.sign({ Email }, `${process.env.TOKEN_SECRET}`);
+  return token;
 }
 
 async function signin(attrs) {
@@ -24,8 +26,7 @@ async function signin(attrs) {
     throw new Error("Email or password is invalid");
   }
   const token = generateToken(attrs.Email);
-  //console.log("token-----------------------", token)
-
+  console.log("token-----------------------", token);
   await user.update({
     token: token,
   });

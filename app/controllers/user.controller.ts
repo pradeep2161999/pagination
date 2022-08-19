@@ -5,13 +5,11 @@ import { UserAttributes } from "../types";
 
 function login(req: FastifyRequest, reply: FastifyReply) {
   const attrs = req.body as UserAttributes;
-  // const pass=attrs.password;
-  // console.log("pass--------------------",pass);
 
   return signin(attrs)
     .then((token) => {
       reply.header("Authorization", `Bearer ${token}`);
-      reply.status(200).send({ msg: ["login sucessfully"] });
+      reply.status(200).send({ msg: ["login successfully"] });
     })
     .catch((err: Error) => {
       reply.status(400).send(err);

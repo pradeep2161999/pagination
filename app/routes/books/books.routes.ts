@@ -12,12 +12,15 @@ import {
   listAll,
 } from "../../controllers/book.controller";
 import { bookDeleteRouterOpts } from "./books-delete.routes.opts";
+const userAuthenticate = require("../../auth/user.auth");
 
 function bookRoutes(
   fastify: FastifyInstance<Server, IncomingMessage, ServerResponse>,
   opts: { prefix: string },
   next: (err?: Error) => void
 ) {
+  userAuthenticate(fastify);
+
   fastify.post("/book/:userId", bookCreateRouterOpts, create);
   fastify.get("/books", listBookRouterOpts, listAll);
   fastify.put("/book/:userId/:bookId", bookUpdateRouterOpts, update);

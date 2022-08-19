@@ -4,9 +4,10 @@ export interface UserAttributes {
   Name: string;
   Email: string;
   Role: string;
-  password:string;
+  password: string;
   createdAt: string;
   updatedAt: string;
+  token: string;
 }
 
 export interface UserInstance extends Model<UserAttributes>, UserAttributes {}
