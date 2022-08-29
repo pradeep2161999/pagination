@@ -9,7 +9,8 @@ import {
   create,
   update,
   destroy,
-  listAll,
+  /*   listAll, */
+  list,
 } from "../../controllers/book.controller";
 import { bookDeleteRouterOpts } from "./books-delete.routes.opts";
 const userAuthenticate = require("../../auth/user.auth");
@@ -22,9 +23,10 @@ function bookRoutes(
   userAuthenticate(fastify);
 
   fastify.post("/book/:userId", bookCreateRouterOpts, create);
-  fastify.get("/books", listBookRouterOpts, listAll);
+  // fastify.get("/books", listBookRouterOpts, listAll);
+  fastify.get("/books", list);
   fastify.put("/book/:userId/:bookId", bookUpdateRouterOpts, update);
-  fastify.delete("/book/:userId/:bookId",bookDeleteRouterOpts, destroy);
+  fastify.delete("/book/:userId/:bookId", bookDeleteRouterOpts, destroy);
   next();
 }
 export default bookRoutes;
