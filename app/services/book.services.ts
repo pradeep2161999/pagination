@@ -40,7 +40,7 @@ async function listAndPaginate(query: any) {
         as: "users",
       },
     ],
-    order: [["BookName", "ASC"]],
+    order: [["id", "ASC"]],
   });
   const books = map(listOfBooks.rows, (row) => {
     const data = {

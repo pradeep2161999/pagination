@@ -4,10 +4,10 @@ const bcrypt=require("bcrypt");
 module.exports = {
   async up (queryInterface, Sequelize) {
         return queryInterface.bulkInsert('Users',[{
-        Name: "kathish",
-        Email: "kathish@yopmail.com",
+        Name: "pradeep",
+        Email: "pradeep@yopmail.com",
         Role: "admin",
-        password:bcrypt.hashSync("kathish",10),
+        password:bcrypt.hashSync("pradeep",10),
         mark_as_signin: new Date(),
         createdAt: new Date(),
         updatedAt: new Date()

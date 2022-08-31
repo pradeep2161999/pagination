@@ -2,7 +2,6 @@ import { Op } from "sequelize";
 
 function globalSearchQuery(text: string) {
   const searchQueries: any[] = [];
-  console.log("T")
   searchQueries.push({
     BookName: { [Op.iLike]: `%${text}%` },
   });
